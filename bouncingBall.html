@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ball</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas height="600" width="600"></canvas>
+        <script>
+            const ctx = document.querySelector("canvas").getContext("2d");
+            const radius = 20;
+            
+            let x = 250, y = 250;
+            let speedX = 130, speedY = 460;
+            let lastTime = null;
+            
+            let box = (context) => {                                            //draws a box
+                context.beginPath();
+                context.lineWidth = 5;                                          //thickness of the line
+                context.strokeStyle = "grey";                                   //color of the line
+                context.strokeRect(50, 50, 500, 500);                           //drawing the rectangle(square)
+                context.closePath();        
+            };
+            let ball = (context, x, y, radius) => {                             //draws the ball
+                context.beginPath();
+                context.fillStyle = "lightcoral";                               //the color of the ball
+                context.lineWidth = 1;                                          //thickness of the line that draws the ball
+                context.arc(x, y, radius, 0, Math.PI * 2);                      //drawing the ball
+                context.stroke();                                               //the ball wont be drawn without this
+                context.fill();                                                 //filling the ball
+                context.closePath();
+            };
+            let updateAnimation = (context, step) => {                          //redraws the scene frame by frame
+                context.clearRect(0, 0, 600, 600);                              //clrearing for the next frame
+                
+                box(context);                                                   //calling the spell that draaws the box
+                
+                x += step * speedX;
+                y += step * speedY;
+                if(x < 50 + radius || x > 550 - radius) speedX = -speedX;       //setting boundaries on x
+                if(y < 50 + radius || y > 550 - radius) speedY = -speedY;       //setting boundaries on y
+                
+                ball(context, x, y, radius);                                    //calling the function that draws the ball
+            };
+            
+            let frame = (time) => {                                             //the frame
+                if(lastTime !== null){                                          //remember the initial state of 'lastTime' is null so the following will only be executed when 'lastTime' is not null
+                    updateAnimation(ctx,
+                        Math.min(100, time - lastTime)/1000                     //
+                    );
+                }
+                lastTime = time;
+                requestAnimationFrame(frame);
+            };
+            
+            requestAnimationFrame(frame);
+            
+        </script>
+    </body>
+</html>

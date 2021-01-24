@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>zigzag</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas height="500" width="1200"></canvas>
+        <script>
+            cx = document.querySelector("canvas").getContext("2d");
+            
+            zigzag = (context, x, y, width, height) => {
+                context.save();
+                context.moveTo(x, y);                                           //move to (x, y)
+                
+                zig = (x, y) => context.lineTo(x, y);                           //draws a line
+                
+                for(let yCount = 0; yCount < 300; yCount += 5){                 //for loop for making the zigzag path
+                    if(yCount % 2 === 0){                                       //if yCount is an even number..
+                        x += width;                                             //add width to the value of x
+                        y += height;                                            //add height to the value of y
+                        zig(x, y);                                              //add a line path use the modified coordinates
+                    }
+                    else{                                                       //otherwise if yCount is an odd number
+                        x -= width;                                             //subtract from x
+                        y += height;                                            //but keep on adding height
+                        zig(x, y);                                              //draw a new line path to these newly modified cordinates
+                    }
+                }
+                context.stroke();                                               //put some ink on the path
+                context.closePath();
+                context.restore();
+            };
+            
+            cx.lineWidth = 2;                                                   //setting the width
+            zigzag(cx, 30, 0, 50 ,10);                                          //call to the spell:: (context, x, y, width, height)
+        </script>
+    </body>
+</html>

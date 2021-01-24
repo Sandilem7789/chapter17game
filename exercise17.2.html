@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+point 2
+-->
+<html>
+    <head>
+        <title>point2 &times;</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas id="c1" width="1500" height="1500"></canvas>
+        
+        <script>
+            let cx1 = document.querySelector("#c1").getContext("2d");
+            /*
+            cx1.fillStyle = "orange";
+            cx1.save();
+            cx1.translate(75, 75);
+            cx1.rotate(Math.PI/4);
+            cx1.fillText("50, 50", 35, 45);
+            cx1.moveTo(50, 50);
+            cx1.lineTo(50, 100);
+            cx1.fillText("50, 100", 35, 110);
+            cx1.lineTo(100, 100);
+            cx1.fillText("100, 100", 105, 105);
+            cx1.lineTo(100, 50);
+            cx1.fillText("100, 50", 105, 45);
+            cx1.closePath();
+            cx1.stroke();
+            cx1.fill();
+            cx1.restore();
+            */
+           
+            function diamond(ctx, x, y, size, rotateAngle, color){                                  
+                let translateValue = size + (size/2);                           //this point is always at the center of the square
+                ctx.fillStyle = color;                                       //color of the square
+                ctx.save();             
+                ctx.translate(750, translateValue);                  //translating to the center of the square...
+                ctx.rotate(rotateAngle);                                          //then rotating the entire canvas about at that point instea of (0, 0)
+                ctx.moveTo(x, y);                                               //top right corner of the square
+                ctx.lineTo(x, y + size);                                        //bottom right
+                ctx.lineTo(x + size, y + size);                                 //bottom left
+                ctx.lineTo(x + size, y);                                        //top left
+                ctx.closePath();                                                //draw a connecting line
+                ctx.stroke();                                                   //draw
+                ctx.fill();                                                     //put some color
+                ctx.restore();
+                ctx.background = "black";
+            }
+            
+            //diamond(cx1, 100, 100, 50);
+            
+            let x = 80, y = 80;          
+            let size = 0.1;
+            let size2 = 1;
+            let value = 10
+            let rotateAngle = Math.PI / 4;
+            setInterval(() => {
+                size = size + 1.5241;
+                size2 += 0.01;
+                value += 20
+                rotateAngle = rotateAngle  * 1.3;
+                y = y - Math.random();
+                diamond(cx1, x + 100, y, size + 10, rotateAngle, "black");
+                diamond(cx1, x + 250, y, size2 + 4/value, rotateAngle, "brown");
+                diamond(cx1, x + 400, y + 100, size - 10, rotateAngle * 0.0001, "coral");
+                if(x % 2 === 0) size = size - 1.526;
+            }, 10);
+            
+        </script>
+    </body>
+</html>

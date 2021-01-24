@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+Exercises
+-->
+<html>
+    <head>
+        <title>Exercises</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas width="1500" height="1500"></canvas>
+        <script>
+            let ctx = document.querySelector("canvas").getContext("2d");
+            function trapezoid(context, x, y){
+                context.moveTo(x + (x / 2), y);
+                context.lineTo(x, y * 2);
+                context.lineTo(x * 3, y * 2);
+                context.lineTo((x * 3) - (x / 2), y);
+                context.closePath();
+                context.fillStyle = "coral";
+                context.fill();
+                context.stroke();
+            }
+            
+            trapezoid(ctx, 30, 30);
+            let size = 0;
+            setInterval(() => {
+                
+                ctx.clearRect(0, 0, 1500, 1500);
+                ctx.lineWidth = 3;
+                trapezoid(ctx, 250 - size, 50 - size);
+                size--;
+                console.log(size);
+                if(Math.abs(size) % 2 !==0) {
+                    ctx.fillStyle = "lightblue";
+                    ctx.fill();
+                }
+                if(Math.abs(size) % 6 ==0) {
+                    ctx.fillStyle = "green";
+                    ctx.fill();
+                }
+                if(Math.abs(size) >= 90) debugger;
+            }, 200);
+            
+        </script>
+    </body>
+</html>

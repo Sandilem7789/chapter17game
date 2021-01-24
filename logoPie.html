@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Spiral</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas width="500" height="500"></canvas>
+        <script>
+            const results =  [                                                 //values that will determine the size of the slice
+                {name: "Satisfied", count: 10, color: "yellow"},
+                {name: "Neutral", count: 10, color: "black"},
+                {name: "Unsatisfied", count: 10, color: "green"},
+                {name: "No comment", count: 10, color: "blue"}
+            ];
+            
+            let cx = document.querySelector("canvas").getContext("2d");
+            let total = results.reduce((sum, {count}) => sum + count, 0);
+            let currentAngle = -0.5 * Math.PI;
+            for(let result of results){
+                let sliceAngle = (result.count/total) * 2 * Math.PI;
+                cx.beginPath();
+                cx.arc(180, 180, 80, currentAngle, currentAngle + sliceAngle);
+                console.log("Slice Angle: " + sliceAngle);
+                console.log("Current Angle: " + currentAngle);
+                console.log("Slice Angle + Current Angle: " + (sliceAngle + currentAngle));
+                currentAngle += sliceAngle;
+                cx.fillStyle = result.color;
+                cx.fill();
+                cx.closePath();
+                
+            }
+            
+                //cx.fillStyle = "black";
+                cx.font = "46px Georgia";
+                cx.fillStyle = "fucshia";
+                cx.fillText("Do Be", 125, 190);
+                cx.fill();
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Lets try to use the branch function we encountered in the chapter to solve this problem
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas height="3800" width="3500"></canvas>
+        <script>
+            cx = document.querySelector("canvas").getContext("2d");
+            
+            function branch(context, length, angle, scale, angler){
+                context.fillRect(0, 0, 3, length);
+                if(length < 1) return;
+                context.save();
+                context.translate(0, length);
+                context.rotate(1/(angler *angle));
+                branch(context, length * scale, angle, scale, angler);
+                
+                context.restore();
+            }
+            cx.translate(1800, 800);
+            //branch(cx, 300, 0.9, 0.91, 1);
+            let angler = 0.1;
+            cx.lineWidth = 10;
+            setInterval(() => {
+                angler = angler / 1.001;
+                //if(angler < 0.05) angler = 1;
+                cx.clearRect(-1800, -200, 3000 ,1800);
+                branch(cx, 300, 0.9, 0.91, 0.9*angler);
+                cx.rotate(angler);
+                
+            }, 1000);
+            
+            
+        </script>
+    </body>
+</html>

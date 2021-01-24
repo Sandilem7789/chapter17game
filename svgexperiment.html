@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+SVG experiment
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="background: #811111">
+        <svg xmlns="http://www.w3.org/2000/svg">
+        <circle r="50" cx="150" cy="150" fill="red" class="circle"/>
+        
+        <script>
+            let circle = document.querySelector(".circle");
+            console.log(circle.attributes.fill.value);
+            let value = 0;
+            setInterval(() => {
+                value++;
+                circle.attributes.fill.value = `rgb(${value - 100}, ${150}, ${250 + value})`;
+                circle.attributes.cy.value = `${20 +Math.sin(value/20) * 30}`;
+                circle.attributes.cx.value = `${50 +Math.cos(value/20) * 30}`;
+                circle.attributes.r.value = `${1000/(value/50) + Math.abs(Math.cos((value+ 200)/100000))}`;
+                if(value > 10000) value = 20;
+            }, 1);
+        </script>
+    </body>
+</html>
