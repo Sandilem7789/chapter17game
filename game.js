@@ -625,7 +625,7 @@ CanvasDisplay.prototype.clearDisplay = function(status){
 
 /*Drawing the back ground using sprites*/
 let otherSprites = document.createElement("img");
-otherSprites.src = "img/pixelartPlayer.png";
+otherSprites.src = "img/sprites.png";
 
 CanvasDisplay.prototype.drawBackground = function(level){                       //mehtod for drawing the background
     let {left, top, width, height} = this.viewport;                             //destructuring, viewport objects;
